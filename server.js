@@ -24,7 +24,8 @@ app.post("/contact", async (req, res) => {
   });
 
   const mailOptions = {
-    from: `"${firstName} ${lastName}" <${email}>`,
+    from: "Big Umbrella Contact Form <contactus@bigumbrella.tech>",
+    replyTo: `${firstName} ${lastName} <${email}>`,
     to: "contactus@bigumbrella.tech",
     subject: "New Contact Form Submission",
     text: `
@@ -40,7 +41,7 @@ Message: ${message || "No message provided"}
     await transporter.sendMail(mailOptions);
     res.send({ success: true });
   } catch (err) {
-    console.error("Mail error:", err);
+    console.error("❌ EMAIL SEND ERROR:", err);
     res.status(500).send({ error: "Error sending email." });
   }
 });
